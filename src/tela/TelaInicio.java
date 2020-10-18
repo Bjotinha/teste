@@ -3,25 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tela;
+package tela;
 
-import Controle.EditaArquivo;
-import Controle.Impressora;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import controle.PortaSerial;
 
 /**
  *
  * @author Bruno
  */
-public class Tela_inicio extends javax.swing.JFrame {
+public class TelaInicio extends javax.swing.JFrame {
 
     /**
      * Creates new form Tela_inicio
      */
-    public Tela_inicio() {
+    public TelaInicio() {
         initComponents();
     }
 
@@ -83,22 +78,11 @@ public class Tela_inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBiniciarActionPerformed
-        EditaArquivo ea = new EditaArquivo();
-        try {
-            ea.reescrever();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao preencher arquivo.."+ ex);
-        }
-        Impressora imp = new Impressora();
-        try {
-            imp.imprimir();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao imprimir.."+ ex);
-        }
+       new PortaSerial().comunicacao();
     }//GEN-LAST:event_jBiniciarActionPerformed
 
     private void jBconfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBconfigActionPerformed
-        Tela_Config config = new Tela_Config();
+        TelaConfig config = new TelaConfig();
         config.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jBconfigActionPerformed
 
@@ -119,20 +103,20 @@ public class Tela_inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tela_inicio().setVisible(true);
+                new TelaInicio().setVisible(true);
             }
         });
     }
