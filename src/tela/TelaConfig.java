@@ -42,11 +42,12 @@ public class TelaConfig extends javax.swing.JFrame {
 		jBarquivo = new javax.swing.JButton();
 		jTxtUrl = new javax.swing.JTextField();
 		jTxtTagReplace  = new javax.swing.JTextField();
+		jTxtPortaSerial  = new javax.swing.JTextField();
 		jCserial = new javax.swing.JComboBox<>();
 		jCimpressora = new javax.swing.JComboBox<>();
 		jBsalvar = new javax.swing.JButton();
 		jBcancelar = new javax.swing.JButton();
-
+		
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("Configuração");
@@ -83,22 +84,21 @@ public class TelaConfig extends javax.swing.JFrame {
 				.addGroup(layout.createSequentialGroup().addContainerGap()
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-										
-										
 										.addComponent(jBarquivo, javax.swing.GroupLayout.DEFAULT_SIZE,
 												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addComponent(jBcancelar))
 						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(jCserial, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+								.addComponent(jTxtTagReplace, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addComponent(jTxtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 280,
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-										.addComponent(jBsalvar).addComponent(jCimpressora,
+										.addComponent(jBsalvar).addComponent(jTxtPortaSerial,
 												javax.swing.GroupLayout.PREFERRED_SIZE, 150,
 												javax.swing.GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap(17, Short.MAX_VALUE)));
+		
 		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
 				.createSequentialGroup().addGap(28, 28, 28)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jBarquivo)
@@ -106,11 +106,11 @@ public class TelaConfig extends javax.swing.JFrame {
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addGap(18, 18, 18)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jCserial, javax.swing.GroupLayout.PREFERRED_SIZE,
+						.addComponent(jTxtTagReplace, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addGap(18, 18, 18)
 				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jCimpressora, javax.swing.GroupLayout.PREFERRED_SIZE,
+						.addComponent(jTxtPortaSerial, javax.swing.GroupLayout.PREFERRED_SIZE,
 								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 				.addGap(61, 61, 61).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 						.addComponent(jBsalvar).addComponent(jBcancelar))
@@ -136,21 +136,20 @@ public class TelaConfig extends javax.swing.JFrame {
 		}
 
 	}
+	private void jBarquivoActionPerformed(java.awt.event.ActionEvent evt) {
 
-
-
-	private void jBarquivoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBarquivoActionPerformed
-		// Buscando arquivo e filtrando por arquivo txt
 		JFileChooser fc = new JFileChooser();
 		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivo", "txt", "Txt");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivo", "zpl", "ZPL", "Zpl", "zPl", "zpL");
 		fc.setFileFilter(filter);
 		fc.showOpenDialog(this);
 		File f = fc.getSelectedFile();
 		if(f!= null) {
 			jTxtUrl.setText(f.getPath());
 		}
-	}// GEN-LAST:event_jBarquivoActionPerformed
+	}
+
+
 
 	private void jBimpressoraActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBimpressoraActionPerformed
 		// Listando impressoras no combo box
@@ -189,7 +188,7 @@ public class TelaConfig extends javax.swing.JFrame {
 	/**
 	 * @param args the command line arguments
 	 */
-	public static void main(String args[]) {
+	  public  void main() {
 		/* Set the Nimbus look and feel */
 		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
 		// (optional) ">
@@ -236,5 +235,6 @@ public class TelaConfig extends javax.swing.JFrame {
 	private javax.swing.JComboBox<String> jCserial;
 	private javax.swing.JTextField jTxtUrl;
 	private javax.swing.JTextField jTxtTagReplace;
+	private javax.swing.JTextField jTxtPortaSerial;
 	// End of variables declaration//GEN-END:variables
 }

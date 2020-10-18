@@ -3,7 +3,6 @@ package controle;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Enumeration;
 
 import javax.comm.CommPort;
@@ -16,7 +15,7 @@ public class PortaSerial {
 	private String[] tipoPort;
 	Enumeration listPort;
 
-	public void comunicacao() {
+	public synchronized void comunicacao() {
 
 		ConteudoArquivo conteudoArquivo = new ConteudoArquivo();
 		try {
@@ -30,7 +29,8 @@ public class PortaSerial {
 		}
 	}
 
-	public void connect(String portName) throws Exception {
+	public void connect() throws Exception {
+		String portName = PropertiesReader.getInstance().getPortaSerial();
 		CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
 		if (portIdentifier.isCurrentlyOwned()) {
 			System.out.println("Error: Port is currently in use");
