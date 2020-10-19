@@ -2,6 +2,7 @@
 package controle;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -9,7 +10,7 @@ import java.util.Properties;
 
 public class PropertiesReader {
 
-	private static final String FILE_PROPERTIES = "config.properties";
+	private static final String FILE_PROPERTIES = "src/main/resources/config.properties";
 
 	private static final String URL_ARQUIVO_ZPL = "url.arquivo.zpl";
 	private static final String PORTA_SERIAL = "porta.serial";
@@ -29,7 +30,8 @@ public class PropertiesReader {
 
 	private PropertiesReader() throws IOException {
 		properties = new Properties();
-		properties.load(getInputStream());
+                FileInputStream file = new FileInputStream("src/main/resources/config.properties");
+		properties.load(file);
 	}
 
 	public void atualizarArquivoProperties() throws IOException {

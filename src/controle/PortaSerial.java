@@ -1,13 +1,15 @@
 
 package controle;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 
-import javax.comm.CommPort;
-import javax.comm.CommPortIdentifier;
-import javax.comm.SerialPort;
+
+ 
+import gnu.io.*;
+
 
 public class PortaSerial {
 
@@ -39,8 +41,10 @@ public class PortaSerial {
 
 			if (commPort instanceof SerialPort) {
 				SerialPort serialPort = (SerialPort) commPort;
-				serialPort.setSerialPortParams(57600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
+                                
+                                serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
 						SerialPort.PARITY_NONE);
+
 
 				InputStream in = serialPort.getInputStream();
 
@@ -61,11 +65,15 @@ public class PortaSerial {
 
 		public void run() {
 			byte[] buffer = new byte[1024];
-			int len = -1;
+			int len= 0;
+                        
 			try {
-				while ((len = this.in.read(buffer)) > -1) {
-					comunicacao();
+                                while ((len =this.in.read(buffer))!=0 ) {
+                                    System.out.println(len);
+                                    System.out.println(buffer);
+                                       // comunicacao();
 					break;
+                                    
 				}
 			} catch (IOException e) {
 				System.out.println("Error: Only serial ports are handled by this example.");
@@ -75,3 +83,9 @@ public class PortaSerial {
 	}
 
 }
+/*int len = -1;
+			try {
+				while ((len = this.in.read(buffer)) > -1) {
+					comunicacao();
+					break;
+				}*/
