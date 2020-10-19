@@ -65,14 +65,16 @@ public class PortaSerial {
 
 		public void run() {
 			byte[] buffer = new byte[1024];
-			int len= 0;
-                        
-			try {
-                                while ((len =this.in.read(buffer))!=0 ) {
-                                    System.out.println(len);
-                                    System.out.println(buffer);
-                                       // comunicacao();
-					break;
+                        int len= -1;                        
+			
+                        try {
+                                while ((len =this.in.read(buffer))> -1 ) {
+                                    String value = new String(buffer);
+                                    if(value != null && value.contains("A")){
+                                        comunicacao();
+                                        buffer = new byte[1024];
+                                        in.reset();
+                                    }
                                     
 				}
 			} catch (IOException e) {

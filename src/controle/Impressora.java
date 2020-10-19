@@ -43,7 +43,7 @@ public class Impressora {
 	}
 	
 	public void imprimir(String conteudo) throws Exception {
-		File f = new File("impressaoTemp.txt");
+		File f = new File("impressaoTemp.zpl");
 		PrintWriter out = new PrintWriter(f);
 		out.print(conteudo);
 		out.close();
@@ -73,7 +73,7 @@ public class Impressora {
 		String impressoraDefault = PropertiesReader.getInstance().getImpressoraPadrao();
 
 		if (impressoraDefault == null || impressoraDefault.isEmpty()) {
-			throw new Exception("Nenhuma impressora default configurada, processo de impressão cancelado.");
+			throw new Exception("Nenhuma impressora default configurada, processo de impressï¿½o cancelado.");
 		}
 
 		PrintService[] printServices = PrinterJob.lookupPrintServices();
@@ -84,7 +84,7 @@ public class Impressora {
 		}
 
 		throw new Exception(
-				"Impressora default configurada não foi encontrada no windows, verifique suas configurações\nImpressora Padrao: "
+				"Impressora default configurada nï¿½o foi encontrada no windows, verifique suas configuraï¿½ï¿½es\nImpressora Padrao: "
 						+ impressoraDefault);
 	}
 
