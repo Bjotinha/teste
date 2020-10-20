@@ -30,7 +30,7 @@ public class PortaSerial {
 		String portName = PropertiesReader.getInstance().getPortaSerial();
 		CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
 		if (portIdentifier.isCurrentlyOwned()) {
-			System.out.println("Error: Port is currently in use");
+			throw new Exception("Error: Port is currently in use");
 		} else {
 			CommPort commPort = portIdentifier.open(this.getClass().getName(), 2000);
 
@@ -59,10 +59,8 @@ public class PortaSerial {
 
 		public void run() {
 			byte[] buffer = new byte[1024];
-			int len = -1;
-
 			try {
-				while ((len = this.in.read(buffer)) > -1) {
+				while (this.in.read(buffer) > -1) {
 					String value = new String(buffer);
 					if (value != null && value.contains("A")) {
 						comunicacao();
@@ -71,10 +69,10 @@ public class PortaSerial {
 					}
 				}
 			} catch (IOException e) {
-				System.out.println("Error: Only serial ports are handled by this example.");
+				System.out.println("Error: Only serial ports are handled by this example." +e.getMessage());
 				e.printStackTrace();
 			} catch (Exception e) {
-				System.out.println("Error: Only serial ports are handled by this example.");
+				System.out.println("Error: Only serial ports are handled by this example." +e.getMessage());
 				e.printStackTrace();
 			}
 		}
