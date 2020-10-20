@@ -9,7 +9,7 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 
 public class PortaSerial {
-
+	private CommPort commPort;
 	private SerialPort serialPort;
 
 	public synchronized void comunicacao() {
@@ -32,8 +32,7 @@ public class PortaSerial {
 		if (portIdentifier.isCurrentlyOwned()) {
 			throw new Exception("Error: Port is currently in use");
 		} else {
-			CommPort commPort = portIdentifier.open(this.getClass().getName(), 2000);
-
+			commPort = portIdentifier.open(this.getClass().getName(), 2000);
 			if (commPort instanceof SerialPort) {
 				serialPort = (SerialPort) commPort;
 
@@ -65,6 +64,8 @@ public class PortaSerial {
 					if (value != null && value.contains("A")) {
 						comunicacao();
 						serialPort.close();
+						commPort.close();
+						wait(500);
 						connect();
 					}
 				}
