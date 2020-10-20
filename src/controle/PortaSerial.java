@@ -1,21 +1,17 @@
 
 package controle;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 
+import javax.comm.SerialPort;
 
- 
 import gnu.io.*;
-
 
 public class PortaSerial {
 
-	private String[] namePort;
-	private String[] tipoPort;
-	Enumeration listPort;
+	private SerialPort serialPort;
 
 	public synchronized void comunicacao() {
 
@@ -40,18 +36,17 @@ public class PortaSerial {
 			CommPort commPort = portIdentifier.open(this.getClass().getName(), 2000);
 
 			if (commPort instanceof SerialPort) {
-				SerialPort serialPort = (SerialPort) commPort;
-                                
-                                serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
-						SerialPort.PARITY_NONE);
+				serialPort = (SerialPort) commPort;
 
+				serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
+						SerialPort.PARITY_NONE);
 
 				InputStream in = serialPort.getInputStream();
 
 				(new Thread(new SerialReader(in))).start();
 
 			} else {
-				System.out.println("Error: Only serial ports are handled by this example.");
+				throw new Exception("Error: Only serial ports are handled by this example.");
 			}
 		}
 	}
@@ -65,19 +60,21 @@ public class PortaSerial {
 
 		public void run() {
 			byte[] buffer = new byte[1024];
-                        int len= -1;                        
-			
-                        try {
-                                while ((len =this.in.read(buffer))> -1 ) {
-                                    String value = new String(buffer);
-                                    if(value != null && value.contains("A")){
-                                        comunicacao();
-                                        buffer = new byte[1024];
-                                        in.reset();
-                                    }
-                                    
+			int len = -1;
+
+			try {
+				while ((len = this.in.read(buffer)) > -1) {
+					String value = new String(buffer);
+					if (value != null && value.contains("A")) {
+						comunicacao();
+						serialPort.close();
+						connect();
+					}
 				}
 			} catch (IOException e) {
+				System.out.println("Error: Only serial ports are handled by this example.");
+				e.printStackTrace();
+			} catch (Exception e) {
 				System.out.println("Error: Only serial ports are handled by this example.");
 				e.printStackTrace();
 			}
@@ -85,9 +82,3 @@ public class PortaSerial {
 	}
 
 }
-/*int len = -1;
-			try {
-				while ((len = this.in.read(buffer)) > -1) {
-					comunicacao();
-					break;
-				}*/

@@ -9,7 +9,6 @@ import java.awt.Desktop;
 import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class Impressora {
 	}
 	
 	public void imprimir(String conteudo) throws Exception {
-		File f = new File("impressaoTemp.zpl");
+		File f = new File("impressaoTemp.txt");
 		PrintWriter out = new PrintWriter(f);
 		out.print(conteudo);
 		out.close();

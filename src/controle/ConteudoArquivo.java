@@ -23,7 +23,7 @@ public class ConteudoArquivo {
 		String linha;
 		StringBuilder arquivoCompleto = new StringBuilder();
 		while ((linha = bufferedReader.readLine()) != null) {
-			arquivoCompleto.append(linha);
+			arquivoCompleto.append(linha).append("\r\n");
 		}
 		bufferedReader.close();
 		fileReader.close();
