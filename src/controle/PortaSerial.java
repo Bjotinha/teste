@@ -3,11 +3,10 @@ package controle;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Enumeration;
 
-import javax.comm.SerialPort;
-
-import gnu.io.*;
+import gnu.io.CommPort;
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
 
 public class PortaSerial {
 
