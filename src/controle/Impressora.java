@@ -5,6 +5,7 @@
  */
 package controle;
 
+
 import java.awt.Desktop;
 import java.awt.print.PrinterJob;
 import java.io.ByteArrayInputStream;
@@ -29,7 +30,7 @@ import javax.print.attribute.standard.Copies;
  * @author Bruno
  */
 public class Impressora {
-
+        
 	public List<String> getListaImpressoras() {
 		List<String> listaImpressoras = new ArrayList<String>();
 
@@ -85,6 +86,7 @@ public class Impressora {
 		throw new Exception(
 				"Impressora default configurada n�o foi encontrada no windows, verifique suas configura��es\nImpressora Padrao: "
 						+ impressoraDefault);
+                                               
 	}
 
 	

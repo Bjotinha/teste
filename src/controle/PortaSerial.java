@@ -1,6 +1,7 @@
 
 package controle;
 
+import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -9,7 +10,8 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 
 public class PortaSerial {
-	private CommPort commPort;
+//	final static Logger logger = Logger.getLogger(PortaSerial.class);
+        private CommPort commPort;
 	private SerialPort serialPort;
 
 	public synchronized void comunicacao() {
@@ -20,8 +22,10 @@ public class PortaSerial {
 			Impressora impressora = new Impressora();
 			impressora.imprimir(conteudo);
 		} catch (IOException e) {
+//                        logger.error("erro no metodo comunicacao"+ e);
 			e.printStackTrace();
 		} catch (Exception e) {
+  //                      logger.error("erro no segundo cath do metodo comunicacao",e);
 			e.printStackTrace();
 		}
 	}
@@ -45,7 +49,8 @@ public class PortaSerial {
 
 			} else {
 				throw new Exception("Error: Only serial ports are handled by this example.");
-			}
+                                
+                        }
 		}
 	}
 
@@ -65,16 +70,19 @@ public class PortaSerial {
 						comunicacao();
 						serialPort.close();
 						commPort.close();
-						wait(500);
+						//wait(500);
 						connect();
+                                                break;
 					}
 				}
 			} catch (IOException e) {
 				System.out.println("Error: Only serial ports are handled by this example." +e.getMessage());
-				e.printStackTrace();
+//				logger.error("primeiro cath da classe serialReader",e);
+                                e.printStackTrace();
 			} catch (Exception e) {
 				System.out.println("Error: Only serial ports are handled by this example." +e.getMessage());
-				e.printStackTrace();
+//				logger.error("erro no segundo cath da classe serialReader",e);
+                                e.printStackTrace();
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package tela;
 
+
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,13 +17,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import controle.PortaSerial;
 import controle.PropertiesReader;
 
-public class NovaTela extends JFrame {
 
+
+public class NovaTela extends JFrame {
+        
+        
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		NovaTela field = new NovaTela();
-		field.testaJFormattedTextField();
+		
+                field.testaJFormattedTextField();
 	}
 
 	JTextField jTxtUrl = new JTextField();
@@ -118,6 +123,7 @@ public class NovaTela extends JFrame {
 //			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro leitura Arquivo properties " + e);
+//                        logger.error("Novatela carregar componentes",e);
 		}
 
 	}
@@ -160,11 +166,12 @@ public class NovaTela extends JFrame {
 			JOptionPane.showMessageDialog(null, "Atualizações salvas!");
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "ERRO " + ex);
+//                        logger.error("erro jBsalvar action performacer",ex);
 		}
 	}
 
 	private void comunicar() {
-
+                
 		PortaSerial portaSerial = new PortaSerial();
 		try {
 			portaSerial.connect();
@@ -173,7 +180,8 @@ public class NovaTela extends JFrame {
 		} catch (Exception e) {
 			labelComunicaoOk.setText("ERRO " + e);
 			JOptionPane.showMessageDialog(null, "ERRO " + e);
-		}
+//                        logger.error("NovaTela comunicar",e);
+                }
 	}
 
 	private void imprimir() {
