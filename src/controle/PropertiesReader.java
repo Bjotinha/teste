@@ -1,7 +1,6 @@
 
 package controle;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,31 +9,28 @@ import java.io.PrintWriter;
 import java.util.Properties;
 
 public class PropertiesReader {
-        
-        private static final String FILE_PROPERTIES = "./src/main/resources/config.properties";
+
+	private static final String FILE_PROPERTIES = "config.properties";
 
 	private static final String URL_ARQUIVO_ZPL = "url.arquivo.zpl";
 	private static final String PORTA_SERIAL = "porta.serial";
 	private static final String IMPRESSORA_PADRAO = "impressora.padrao";
 	private static final String TAG_REPLACE = "tag.replace";
 
-        
 	private static PropertiesReader instance;
 	private final Properties properties;
-
 
 	public static PropertiesReader getInstance() throws IOException {
 		if (instance == null) {
 			instance = new PropertiesReader();
 		}
-                
+
 		return instance;
 	}
 
 	private PropertiesReader() throws IOException {
 		properties = new Properties();
-                FileInputStream file = new FileInputStream(FILE_PROPERTIES);
-		properties.load(file);
+		properties.load(getInputStream());
 	}
 
 	public void atualizarArquivoProperties() throws IOException {
@@ -82,7 +78,7 @@ public class PropertiesReader {
 	public String getImpressoraPadrao() {
 		return getProperties(IMPRESSORA_PADRAO);
 	}
-	
+
 	public String getTagReplace() {
 		return getProperties(TAG_REPLACE);
 	}

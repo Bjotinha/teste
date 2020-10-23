@@ -7,12 +7,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 public class ConteudoArquivo {
+	final static Logger logger = Logger.getLogger(ConteudoArquivo.class);
 
 	public String getConteudoCompleto() throws IOException {
+		logger.info("obtendo conteudo do arquivo...");
 		String conteudo = getConteudoArquivo();
+		logger.info("obtendo conteudo do arquivo...");
 		String dataFormatada = getDataFormatada();
+		logger.info("dataFormatada="+dataFormatada);
 		String tagReplace = PropertiesReader.getInstance().getTagReplace();
+		logger.info("tagReplace="+tagReplace);
 		return conteudo.replace(tagReplace, dataFormatada);
 	}
 

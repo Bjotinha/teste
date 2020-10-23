@@ -1,6 +1,5 @@
 package tela;
 
-
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,20 +13,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.log4j.Logger;
+
 import controle.PortaSerial;
 import controle.PropertiesReader;
 
-
-
 public class NovaTela extends JFrame {
-        
-        
+	final static Logger logger = Logger.getLogger(NovaTela.class);
+
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		NovaTela field = new NovaTela();
-		
-                field.testaJFormattedTextField();
+
+		field.testaJFormattedTextField();
 	}
 
 	JTextField jTxtUrl = new JTextField();
@@ -123,7 +122,7 @@ public class NovaTela extends JFrame {
 //			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro leitura Arquivo properties " + e);
-//                        logger.error("Novatela carregar componentes",e);
+			logger.error("Novatela carregar componentes", e);
 		}
 
 	}
@@ -166,22 +165,22 @@ public class NovaTela extends JFrame {
 			JOptionPane.showMessageDialog(null, "Atualizações salvas!");
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "ERRO " + ex);
-//                        logger.error("erro jBsalvar action performacer",ex);
+			logger.error("erro jBsalvar action performacer ", ex);
 		}
 	}
 
 	private void comunicar() {
-                
+
 		PortaSerial portaSerial = new PortaSerial();
 		try {
+			logger.info("chamando comunicacao...");
 			portaSerial.connect();
+			logger.info("conectado ..");
 			labelComunicaoOk.setText("Comunicaçao iniciada...");
-			JOptionPane.showMessageDialog(null, "Comunicação inicializada!");
 		} catch (Exception e) {
+			logger.error("NovaTela comunicar", e);
 			labelComunicaoOk.setText("ERRO " + e);
-			JOptionPane.showMessageDialog(null, "ERRO " + e);
-//                        logger.error("NovaTela comunicar",e);
-                }
+		}
 	}
 
 	private void imprimir() {

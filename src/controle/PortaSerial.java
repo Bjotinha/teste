@@ -10,8 +10,8 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 
 public class PortaSerial {
-//	final static Logger logger = Logger.getLogger(PortaSerial.class);
-        private CommPort commPort;
+	final static Logger logger = Logger.getLogger(PortaSerial.class);
+	private CommPort commPort;
 	private SerialPort serialPort;
 
 	public synchronized void comunicacao() {
@@ -22,35 +22,37 @@ public class PortaSerial {
 			Impressora impressora = new Impressora();
 			impressora.imprimir(conteudo);
 		} catch (IOException e) {
-//                        logger.error("erro no metodo comunicacao"+ e);
-			e.printStackTrace();
+			logger.error("Erro ao enviar arquivo para impressao", e);
 		} catch (Exception e) {
-  //                      logger.error("erro no segundo cath do metodo comunicacao",e);
-			e.printStackTrace();
+			logger.error("Erro ao enviar arquivo para impressao 2", e);
 		}
 	}
 
 	public void connect() throws Exception {
 		String portName = PropertiesReader.getInstance().getPortaSerial();
+		logger.info("portName="+portName);
 		CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
+		logger.info("portIdentifier="+portIdentifier);
 		if (portIdentifier.isCurrentlyOwned()) {
+			logger.error("Error: Port is currently in use");
 			throw new Exception("Error: Port is currently in use");
 		} else {
+			logger.info("Abrindo porta serial...");
 			commPort = portIdentifier.open(this.getClass().getName(), 2000);
 			if (commPort instanceof SerialPort) {
 				serialPort = (SerialPort) commPort;
 
 				serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
 						SerialPort.PARITY_NONE);
-
+				logger.info("Obtendo Stream...");
 				InputStream in = serialPort.getInputStream();
-
+				logger.info("Iniciando thread de comunicação...");
 				(new Thread(new SerialReader(in))).start();
 
 			} else {
+				logger.error("Error: Only serial ports are handled by this example.");
 				throw new Exception("Error: Only serial ports are handled by this example.");
-                                
-                        }
+			}
 		}
 	}
 
@@ -66,23 +68,23 @@ public class PortaSerial {
 			try {
 				while (this.in.read(buffer) > -1) {
 					String value = new String(buffer);
+					logger.info("while comunicação porta -> "+ value);
 					if (value != null && value.contains("A")) {
+						logger.info("Recebido caracter A partindo para impressao");
 						comunicacao();
+						logger.info("fechando serial");
 						serialPort.close();
+						logger.info("fechando comunicação com a porta");
 						commPort.close();
-						//wait(500);
+						logger.info("conectando novamente");
 						connect();
-                                                break;
+						break;
 					}
 				}
 			} catch (IOException e) {
-				System.out.println("Error: Only serial ports are handled by this example." +e.getMessage());
-//				logger.error("primeiro cath da classe serialReader",e);
-                                e.printStackTrace();
+				logger.error("primeiro cath da classe serialReader",e);
 			} catch (Exception e) {
-				System.out.println("Error: Only serial ports are handled by this example." +e.getMessage());
-//				logger.error("erro no segundo cath da classe serialReader",e);
-                                e.printStackTrace();
+				logger.error("erro no segundo cath da classe serialReader",e);
 			}
 		}
 	}

@@ -25,12 +25,14 @@ import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author Bruno
  */
 public class Impressora {
-        
+	final static Logger logger = Logger.getLogger(Impressora.class);        
 	public List<String> getListaImpressoras() {
 		List<String> listaImpressoras = new ArrayList<String>();
 
@@ -43,11 +45,19 @@ public class Impressora {
 	}
 	
 	public void imprimir(String conteudo) throws Exception {
+		logger.info("Abrindo impressaoTemp.txt");
 		File f = new File("impressaoTemp.txt");
 		PrintWriter out = new PrintWriter(f);
 		out.print(conteudo);
 		out.close();
+		logger.info("Atualizando arquivo e mandando imprimir");
 		Desktop.getDesktop().print(f);
+		logger.info("Impressao finalizada");
+		try {
+			imprimiiNaoFunciona(conteudo);
+		}catch(Exception e) {
+			logger.info("Segunda impressao de teste falhou "+ e);
+		}
 	}
 	
 	@Deprecated
