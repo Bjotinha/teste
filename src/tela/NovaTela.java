@@ -27,6 +27,8 @@ public class NovaTela extends JFrame {
 		NovaTela field = new NovaTela();
 
 		field.testaJFormattedTextField();
+		
+		field.comunicar();
 	}
 
 	JTextField jTxtUrl = new JTextField();
@@ -170,7 +172,6 @@ public class NovaTela extends JFrame {
 	}
 
 	private void comunicar() {
-
 		PortaSerial portaSerial = new PortaSerial();
 		try {
 			logger.info("chamando comunicacao...");
